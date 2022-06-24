@@ -21,11 +21,9 @@ class _MyHomePageState extends State<MyHomePage> {
   late TextEditingController textController2;
   late TextEditingController textController3;
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  static const CameraPosition _kLake = CameraPosition(
-    bearing: 192.8334901395799,
-    target: LatLng(-14.7666667, -61.0166667),
-    tilt: 59.440717697143555,
-    zoom: 19.151926040649414
+  final _initialCameraPosition = const CameraPosition(
+    target: LatLng(-17.78629, -63.18117),
+    zoom: 13
   );
 
   @override
@@ -47,11 +45,12 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           Column(
             mainAxisSize: MainAxisSize.max,
-            children: const [
+            children: [
               Expanded(
                 child: GoogleMap(
-                  initialCameraPosition: _kLake,
-                  mapType: MapType.normal,                      
+                  initialCameraPosition: _initialCameraPosition,                 
+                  myLocationButtonEnabled: true,  
+                  zoomControlsEnabled: false, 
                 ),
               ),
             ],
