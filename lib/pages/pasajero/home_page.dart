@@ -19,7 +19,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late TextEditingController textController1;
   late TextEditingController textController2;
   late TextEditingController textController3;
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   static const CameraPosition _kLake = CameraPosition(
     bearing: 192.8334901395799,
     target: LatLng(37.43296265331129, -122.08832357078792),
@@ -41,6 +41,100 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
+      drawer: Drawer(
+        child: Column(
+          children: <Widget>[
+            const SizedBox(height: 20,),
+            DrawerHeader(
+              child: Container(
+                height: 142,
+                width: MediaQuery.of(context).size.width,
+                color: Colors.black,
+              ),
+            ),
+            ListTile(
+              title: const Text('Ciudad',
+                style: TextStyle(fontSize: 18.0, color: Colors.grey),
+              ),
+              leading: const Icon(
+                Icons.maps_ugc,
+                size: 20.0,
+                color: Colors.grey,
+              ),
+              onTap: () {
+                /* Navigator.pop(context);
+                Navigator.of(context).push(new MaterialPageRoute(
+                builder: (context) => dealerBuilder()));*/
+              },
+            ),
+            const SizedBox(height: 20,),
+            ListTile(
+              title: const Text('Mis viajes',
+                style: TextStyle(fontSize: 18.0, color: Colors.grey),
+              ),
+              leading: const Icon(
+                Icons.cabin,
+                size: 20.0,
+                color: Colors.grey,
+              ),
+              onTap: () {
+                /* Navigator.pop(context);
+                Navigator.of(context).push(new MaterialPageRoute(
+                builder: (context) => dealerBuilder()));*/
+              },
+            ),
+            const SizedBox(height: 20,),
+            ListTile(
+              title: const Text('Configuraciones',
+                style: TextStyle(fontSize: 18.0, color: Colors.grey),
+              ),
+              leading: const Icon(
+                Icons.adjust_sharp,
+                size: 20.0,
+                color: Colors.grey,
+              ),
+              onTap: () {
+                /* Navigator.pop(context);
+                Navigator.of(context).push(new MaterialPageRoute(
+                builder: (context) => dealerBuilder()));*/
+              },
+            ),
+            const SizedBox(height: 20,),
+            ListTile(
+              title: const Text('Logout',
+                style: TextStyle(fontSize: 18.0, color: Colors.grey),
+              ),
+              leading: const Icon(
+                Icons.logout,
+                size: 20.0,
+                color: Colors.grey,
+              ),
+              onTap: () {
+                /* Navigator.pop(context);
+                Navigator.of(context).push(new MaterialPageRoute(
+                builder: (context) => dealerBuilder()));*/
+              },
+            ),           
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  height: 150,
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.grey.withOpacity(0.5),
+                  child: Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('Modo Conductor'),
+                    ),
+                  )
+                ),
+              )
+            )
+          ],
+        ),
+      ),
       body: Stack(
         children: [
           Column(
@@ -67,6 +161,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
                   ),
+                  child: IconButton(                        
+                    icon: Icon(
+                      Icons.menu,
+                      color: Theme.of(context).bottomAppBarColor,
+                      size: 20,
+                    ),
+                    onPressed: () => scaffoldKey.currentState?.openDrawer(),
+                  ),
                 ),
               ],
             ),
@@ -87,7 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.96,
-                      height: 200,
+                      height: 240,
                       decoration: BoxDecoration(
                         color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.circular(8),
@@ -98,11 +200,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Divider(
-                              height: 3,
-                              thickness: 1,
-                              color: Theme.of(context).backgroundColor,
-                            ),
                             TextFormField(
                               controller: textController1,
                               onChanged: (_) => EasyDebounce.debounce(
@@ -138,6 +235,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Icons.pin_drop_outlined,
                                 ),
                               ),
+                            ),
+                            const Divider(
+                              height: 3,
+                              thickness: 1,
+                              color: Colors.grey,
                             ),
                             TextFormField(
                               controller: textController2,
@@ -175,6 +277,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                 ),
                               ),                    
                             ),
+                            const Divider(
+                              height: 3,
+                              thickness: 1,
+                              color: Colors.grey,
+                            ),
                             TextFormField(
                               controller: textController3,
                               onChanged: (_) => EasyDebounce.debounce(
@@ -205,9 +312,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                     topLeft: Radius.circular(4.0),
                                     topRight: Radius.circular(4.0),
                                   ),
-                                ),                        
-                              ),                                  
+                                ),
+                                prefixIcon: Icon(
+                                  Icons.payment,
+                                ),
+                              ),
                             ),
+                            const Divider(
+                              height: 3,
+                              thickness: 1,
+                              color: Colors.grey,
+                            ),
+                            const SizedBox(height: 10,),
                             Align(
                               alignment: const AlignmentDirectional(0.05, 0),
                               child: ElevatedButton(
