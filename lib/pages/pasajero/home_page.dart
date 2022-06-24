@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:app_conductor/widgets/widget_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -22,7 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   static const CameraPosition _kLake = CameraPosition(
     bearing: 192.8334901395799,
-    target: LatLng(37.43296265331129, -122.08832357078792),
+    target: LatLng(-14.7666667, -61.0166667),
     tilt: 59.440717697143555,
     zoom: 19.151926040649414
   );
@@ -41,100 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       key: scaffoldKey,
       resizeToAvoidBottomInset: false,
-      drawer: Drawer(
-        child: Column(
-          children: <Widget>[
-            const SizedBox(height: 20,),
-            DrawerHeader(
-              child: Container(
-                height: 142,
-                width: MediaQuery.of(context).size.width,
-                color: Colors.black,
-              ),
-            ),
-            ListTile(
-              title: const Text('Ciudad',
-                style: TextStyle(fontSize: 18.0, color: Colors.grey),
-              ),
-              leading: const Icon(
-                Icons.maps_ugc,
-                size: 20.0,
-                color: Colors.grey,
-              ),
-              onTap: () {
-                /* Navigator.pop(context);
-                Navigator.of(context).push(new MaterialPageRoute(
-                builder: (context) => dealerBuilder()));*/
-              },
-            ),
-            const SizedBox(height: 20,),
-            ListTile(
-              title: const Text('Mis viajes',
-                style: TextStyle(fontSize: 18.0, color: Colors.grey),
-              ),
-              leading: const Icon(
-                Icons.cabin,
-                size: 20.0,
-                color: Colors.grey,
-              ),
-              onTap: () {
-                /* Navigator.pop(context);
-                Navigator.of(context).push(new MaterialPageRoute(
-                builder: (context) => dealerBuilder()));*/
-              },
-            ),
-            const SizedBox(height: 20,),
-            ListTile(
-              title: const Text('Configuraciones',
-                style: TextStyle(fontSize: 18.0, color: Colors.grey),
-              ),
-              leading: const Icon(
-                Icons.adjust_sharp,
-                size: 20.0,
-                color: Colors.grey,
-              ),
-              onTap: () {
-                /* Navigator.pop(context);
-                Navigator.of(context).push(new MaterialPageRoute(
-                builder: (context) => dealerBuilder()));*/
-              },
-            ),
-            const SizedBox(height: 20,),
-            ListTile(
-              title: const Text('Logout',
-                style: TextStyle(fontSize: 18.0, color: Colors.grey),
-              ),
-              leading: const Icon(
-                Icons.logout,
-                size: 20.0,
-                color: Colors.grey,
-              ),
-              onTap: () {
-                /* Navigator.pop(context);
-                Navigator.of(context).push(new MaterialPageRoute(
-                builder: (context) => dealerBuilder()));*/
-              },
-            ),           
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  height: 150,
-                  width: MediaQuery.of(context).size.width,
-                  color: Colors.grey.withOpacity(0.5),
-                  child: Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('Modo Conductor'),
-                    ),
-                  )
-                ),
-              )
-            )
-          ],
-        ),
-      ),
+      drawer: const MenuWidget(),
       body: Stack(
         children: [
           Column(
