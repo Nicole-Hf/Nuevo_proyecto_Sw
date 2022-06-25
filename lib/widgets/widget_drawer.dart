@@ -1,3 +1,4 @@
+import 'package:app_conductor/widgets/profile_widget.dart';
 import 'package:flutter/material.dart';
 
 class MenuWidget extends StatelessWidget {
@@ -28,9 +29,9 @@ class MenuWidget extends StatelessWidget {
               color: Colors.grey,
             ),
             onTap: () {
-                /* Navigator.pop(context);
-                Navigator.of(context).push(new MaterialPageRoute(
-                builder: (context) => dealerBuilder()));*/
+                /* Navigator.pop(context);*/
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const EditProfileWidget()));
             },
           ),
           ListTile(
