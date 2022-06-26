@@ -1,4 +1,5 @@
 import 'package:app_conductor/pages/pasajero/home_page.dart';
+import 'package:app_conductor/widgets/register_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +17,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: const MyHomePage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const CreateAccountWidget(),       
+        '/home': (context) => const MyHomePage(),
+      },
     );
   }
 }

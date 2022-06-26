@@ -16,6 +16,7 @@ dependencies:
   google_fonts: ^3.0.1
   google_maps_flutter: ^2.1.8
   easy_debounce: ^2.0.2+1
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:
@@ -26,3 +27,6 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
+
+  assets:
+    - assets/images/
