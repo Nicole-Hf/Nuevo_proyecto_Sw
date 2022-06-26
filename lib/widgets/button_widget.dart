@@ -17,10 +17,10 @@ class RoundedButton extends StatelessWidget {
           onBtnPressed();
         },
         minWidth: 320,
-        height: 40,
+        height: 50,
         child: Text(
           btnText,
-          style: const TextStyle(color: Colors.white, fontSize: 20),
+          style: const TextStyle(color: Colors.white, fontSize: 25),
         ),
       ),
     );
