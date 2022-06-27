@@ -1,4 +1,7 @@
-import 'package:app_conductor/widgets/profile_widget.dart';
+import 'package:app_conductor/pages/pasajero/home_page.dart';
+import 'package:app_conductor/pages/pasajero/profile_widget.dart';
+import 'package:app_conductor/variables.dart';
+import 'package:app_conductor/widgets/register_widget.dart';
 import 'package:flutter/material.dart';
 
 class MenuWidget extends StatelessWidget {
@@ -11,10 +14,10 @@ class MenuWidget extends StatelessWidget {
       child: Column(
         children: <Widget>[
           const SizedBox(height: 20,),
-          const UserAccountsDrawerHeader(
-            accountName: Text('Usuario'),
-            accountEmail: Text('user@gmail.com'),
-            currentAccountPicture: CircleAvatar(
+          UserAccountsDrawerHeader(
+            accountName: Text(name, style: const TextStyle(fontSize: 13),),
+            accountEmail: const Text(''),
+            currentAccountPicture: const CircleAvatar(
               backgroundColor: Colors.blue,
               child: Text('U', style: TextStyle(fontSize: 40.0),),
             ),
@@ -29,7 +32,6 @@ class MenuWidget extends StatelessWidget {
               color: Colors.grey,
             ),
             onTap: () {
-                /* Navigator.pop(context);*/
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const EditProfileWidget()));
             },
@@ -44,9 +46,9 @@ class MenuWidget extends StatelessWidget {
               color: Colors.grey,
             ),
             onTap: () {
-                /* Navigator.pop(context);
-                Navigator.of(context).push(new MaterialPageRoute(
-                builder: (context) => dealerBuilder()));*/
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const MyHomePage()
+              ));
             },
           ),
           ListTile(
@@ -59,9 +61,7 @@ class MenuWidget extends StatelessWidget {
               color: Colors.grey,
             ),
             onTap: () {
-                /* Navigator.pop(context);
-                Navigator.of(context).push(new MaterialPageRoute(
-                builder: (context) => dealerBuilder()));*/
+              debugPrint('Button clicked');
             },
           ),
           ListTile(
@@ -74,9 +74,7 @@ class MenuWidget extends StatelessWidget {
               color: Colors.grey,
             ),
             onTap: () {
-                /* Navigator.pop(context);
-                Navigator.of(context).push(new MaterialPageRoute(
-                builder: (context) => dealerBuilder()));*/
+              debugPrint('Button clicked');
             },
           ),
           ListTile(
@@ -89,9 +87,10 @@ class MenuWidget extends StatelessWidget {
               color: Colors.grey,
             ),
             onTap: () {
-                /* Navigator.pop(context);
-                Navigator.of(context).push(new MaterialPageRoute(
-                builder: (context) => dealerBuilder()));*/
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const CreateAccountWidget()), 
+                (route) => false
+              );
             },
           ),           
           Expanded(

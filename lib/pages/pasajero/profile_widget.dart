@@ -1,5 +1,12 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, unnecessary_null_comparison
 
+import 'dart:convert';
+import 'package:app_conductor/conections/globals.dart';
+import 'package:app_conductor/pages/pasajero/home_page.dart';
+import 'package:app_conductor/widgets/button_widget.dart';
+import 'package:http/http.dart' as http;
+import 'package:app_conductor/conections/auth_service.dart';
+import 'package:app_conductor/variables.dart';
 import 'package:flutter/material.dart';
 
 class EditProfileWidget extends StatefulWidget {
@@ -12,6 +19,37 @@ class EditProfileWidget extends StatefulWidget {
 class _EditProfileWidgetState extends State<EditProfileWidget> {
   String uploadedFileUrl = '';
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  String _name = "";
+  String _celular = "";
+  String _email = "";
+  String _fechaNacimiento = "";
+  String _password = "";
+  bool passwordVisibility = false;
+
+  updateAccountPressed() async {   
+    http.Response response = await AuthServices.update(_name, _celular, _password, _email, _fechaNacimiento);
+    Map responseMap = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      Navigator.push(
+        context, 
+        MaterialPageRoute(builder: (BuildContext context) => const MyHomePage(),
+      ));
+    } else {
+      errorSnackBar(context, responseMap.values.first[0]);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    passwordVisibility = false;
+    _name = name;
+    _celular = telefono;
+    _password = password;
+    _email = email;
+    _fechaNacimiento = birthday;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,22 +135,20 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 16),
                 child: TextFormField(
-                  //controller: textController1,
+                  initialValue: name,
+                  onChanged: (value) {
+                    debugPrint(name);
+                    debugPrint(value);
+                    value == null ? _name = name : _name = value;
+                  },
                   decoration: InputDecoration(
-                    labelText: 'Full Name',
+                    labelText: 'Nombre completo',
                     labelStyle: const TextStyle(
                       fontFamily: 'Lexend Deca',
                       color: Color(0xFF95A1AC),
                       fontSize: 14,
                       fontWeight: FontWeight.normal,
-                    ),
-                    hintText: 'Your full name...',
-                    hintStyle: const TextStyle(
-                      fontFamily: 'Lexend Deca',
-                      color: Color(0xFF95A1AC),
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                    ),
+                    ),                   
                     enabledBorder: OutlineInputBorder(
                       borderSide: const BorderSide(
                         color: Color(0xFFDBE2E7),
@@ -142,22 +178,19 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 12),
                 child: TextFormField(
-                  //controller: emailAddressController,
+                  initialValue: email,
+                  onChanged: (value) {
+                    email = value;
+                    value == null ? _email = email : _email = value;
+                  },
                   decoration: InputDecoration(
-                    labelText: 'Email Address',
+                    labelText: 'Email (Opcional)',
                     labelStyle: const TextStyle(
                       fontFamily: 'Lexend Deca',
                       color: Color(0xFF95A1AC),
                       fontSize: 14,
                       fontWeight: FontWeight.normal,
-                    ),
-                    hintText: 'Your email..',
-                    hintStyle: const TextStyle(
-                      fontFamily: 'Lexend Deca',
-                      color: Color(0xFF95A1AC),
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                    ),
+                    ),                   
                     enabledBorder: OutlineInputBorder(
                       borderSide: const BorderSide(
                         color: Color(0xFFDBE2E7),
@@ -187,22 +220,114 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 12),
                 child: TextFormField(
-                  //controller: emailAddressController,
+                  initialValue: telefono,
+                  onChanged: (value) {
+                    value == null ? _celular = telefono : _celular = value;
+                  },
                   decoration: InputDecoration(
-                    labelText: 'Fecha de Nacimiento',
+                    labelText: 'Celular',
                     labelStyle: const TextStyle(
                       fontFamily: 'Lexend Deca',
                       color: Color(0xFF95A1AC),
                       fontSize: 14,
                       fontWeight: FontWeight.normal,
+                    ),                   
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: Color(0xFFDBE2E7),
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    hintText: 'Your birthday..',
-                    hintStyle: const TextStyle(
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: Color(0xFFDBE2E7),
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                    contentPadding: const EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                  ),
+                  style: const TextStyle(
+                    fontFamily: 'Lexend Deca',
+                    color: Color(0xFF14181B),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                )
+              ),
+              /*Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 12),
+                child: TextFormField(
+                  //initialValue: password,
+                  onChanged: (value) {
+                    value == null ? _password = password : _password = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    labelStyle: const TextStyle(
                       fontFamily: 'Lexend Deca',
                       color: Color(0xFF95A1AC),
                       fontSize: 14,
                       fontWeight: FontWeight.normal,
+                    ),                  
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: Color(0xFFDBE2E7),
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                        color: Color(0xFFDBE2E7),
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                    contentPadding: const EdgeInsetsDirectional.fromSTEB(20, 24, 0, 24),
+                    suffixIcon: InkWell(
+                      onTap: () => setState(
+                        () => passwordVisibility = !passwordVisibility,
+                      ),
+                      focusNode: FocusNode(skipTraversal: true),
+                      child: Icon(
+                        passwordVisibility
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
+                        color: const Color(0xFF95A1AC),
+                        size: 22,
+                      )
+                    ),
+                  ),
+                  style: const TextStyle(
+                    fontFamily: 'Lexend Deca',
+                    color: Color(0xFF14181B),
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
+                  ),
+                )
+              ),*/
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(20, 0, 20, 12),
+                child: TextFormField(
+                  initialValue: birthday,
+                  onChanged: (value) {
+                    birthday = value;
+                    _fechaNacimiento = value;
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'Fecha de Nacimiento (Opcional)',
+                    labelStyle: const TextStyle(
+                      fontFamily: 'Lexend Deca',
+                      color: Color(0xFF95A1AC),
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal,
+                    ),                   
                     enabledBorder: OutlineInputBorder(
                       borderSide: const BorderSide(
                         color: Color(0xFFDBE2E7),
@@ -229,29 +354,10 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                   ),
                 )
               ),              
-              Align(
-                alignment: const AlignmentDirectional(0, 0.05),
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),                            
-                        )
-                      )
-                    ),
-                    onPressed: () {},
-                    child: const Text('Guardar Cambios',
-                      style: TextStyle(
-                        fontFamily: 'Lexend Deca',
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),                   
-                  ),
-                ),
+              const SizedBox(height: 50,),
+                RoundedButton(
+                  btnText: 'Guardar cambios',
+                  onBtnPressed: () => updateAccountPressed(),
               ),
             ],
           ),

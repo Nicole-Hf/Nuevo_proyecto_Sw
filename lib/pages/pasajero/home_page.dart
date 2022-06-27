@@ -114,8 +114,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                 const Duration(milliseconds: 2000),
                                 () => setState(() {}),
                               ),
-                              autofocus: true,
-                              obscureText: false,
                               decoration: const InputDecoration(
                                 hintText: 'Lugar de recogida',
                                 enabledBorder: UnderlineInputBorder(
@@ -155,8 +153,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                 const Duration(milliseconds: 2000),
                                 () => setState(() {}),
                               ),
-                              autofocus: true,
-                              obscureText: false,
                               decoration: const InputDecoration(
                                 hintText: 'Lugar de destino',
                                 enabledBorder: UnderlineInputBorder(
@@ -196,8 +192,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                 const Duration(milliseconds: 2000),
                                 () => setState(() {}),
                               ),
-                              autofocus: true,
-                              obscureText: false,
                               decoration: const InputDecoration(
                                 hintText: 'Ofrezca su tarifa',
                                 enabledBorder: UnderlineInputBorder(
